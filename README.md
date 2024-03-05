@@ -12,7 +12,7 @@ ERDCloud를 활용하여 erd를 작성해 보았습니다
 
 <br>
 
-### Product API
+### Product API 명세
 
 요구 사항을 바탕으로 Endpoint를 설정해 보았습니다
 
