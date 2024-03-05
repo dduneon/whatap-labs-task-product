@@ -14,6 +14,6 @@ ERDCloud를 활용하여 erd를 작성해 보았습니다
 
 ### Product API 명세
 
-요구 사항을 바탕으로 Endpoint를 설정해 보았습니다
+요구 사항을 바탕으로 API 명세를 작성해 보았습니다
 
-![image](https://github.com/dduneon/whatap-labs-task-product/assets/84072084/e8d4efc6-e909-4e0f-9363-b9cb5a8ce9a8)
+<img width="751" alt="image" src="https://github.com/dduneon/whatap-labs-task-product/assets/84072084/6a8d74f8-c3bc-45a9-9bed-ab5713921568">
