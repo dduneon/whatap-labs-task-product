@@ -5,7 +5,6 @@ import io.whatap.task.dto.res.ProductResponseDto;
 import io.whatap.task.entity.Product;
 import io.whatap.task.repository.ProductRepository;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
