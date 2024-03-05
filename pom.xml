@@ -55,6 +55,11 @@
       <version>1.18.30</version>
       <scope>provided</scope>
     </dependency>
+    <!-- Validation 을 위한 의존성 -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-hibernate-validator</artifactId>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
