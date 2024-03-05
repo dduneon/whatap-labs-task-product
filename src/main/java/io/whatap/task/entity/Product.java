@@ -29,4 +29,12 @@ public class Product extends PanacheEntity {
 
     @Column(name = "product_description")
     private String description;
+
+    public void updateProductName(String name) {
+        this.name = name;
+    }
+
+    public void updateProductDescription(String description) {
+        this.description = description;
+    }
 }
