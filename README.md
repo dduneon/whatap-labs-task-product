@@ -16,7 +16,8 @@ ERDCloud를 활용하여 erd를 작성해 보았습니다
 
 요구 사항을 바탕으로 API 명세를 작성해 보았습니다
 
-<img width="751" alt="image" src="https://github.com/dduneon/whatap-labs-task-product/assets/84072084/6a8d74f8-c3bc-45a9-9bed-ab5713921568">
+![image](https://github.com/dduneon/whatap-labs-task-product/assets/84072084/fc5fcfb0-2ad8-4c4f-bceb-cb38d4f973d3)
+
 
 ### HTTP Request
 
