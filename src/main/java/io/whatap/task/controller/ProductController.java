@@ -5,7 +5,6 @@ import io.whatap.task.dto.req.ProductCreateRequestDto;
 import io.whatap.task.dto.req.ProductUpdateRequestDto;
 import io.whatap.task.dto.res.ProductResponseDto;
 import io.whatap.task.service.ProductService;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
