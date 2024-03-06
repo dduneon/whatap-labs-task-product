@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class ProductCreateRequestDto {
-    @NotBlank(message = "Name 은 반드시 입력되어야 합니다")
+    @NotBlank(message = "name 필드가 비어 있습니다")
     private String name;
-    @NotBlank(message = "Description 은 반드시 입력되어야 합니다")
+    @NotBlank(message = "description 필드가 비어 있습니다")
     private String description;
 }
