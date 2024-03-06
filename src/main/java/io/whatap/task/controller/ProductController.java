@@ -27,7 +27,6 @@ import jakarta.ws.rs.core.Response;
  * @version 2024. 03. 05
  */
 
-@ApplicationScoped
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/products")
 public class ProductController {
