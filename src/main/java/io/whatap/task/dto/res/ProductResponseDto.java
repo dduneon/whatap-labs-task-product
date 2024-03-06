@@ -1,5 +1,6 @@
 package io.whatap.task.dto.res;
 
+import io.whatap.task.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -15,4 +16,8 @@ public class ProductResponseDto {
     private Long id;
     private String name;
     private String description;
+
+    public static ProductResponseDto toDto(Product product) {
+        return new ProductResponseDto(product.getId(), product.getName(), product.getDescription());
+    }
 }
