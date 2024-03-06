@@ -1,12 +1,17 @@
 package io.whatap.task.service;
 
+import io.quarkus.panache.common.Page;
+import io.quarkus.panache.common.Sort;
 import io.whatap.task.dto.req.ProductCreateRequestDto;
+import io.whatap.task.dto.req.ProductUpdateRequestDto;
 import io.whatap.task.dto.res.ProductResponseDto;
 import io.whatap.task.entity.Product;
+import io.whatap.task.exception.ProductNotFoundException;
 import io.whatap.task.repository.ProductRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 상품에 관한 CRUD 를 제공하는 서비스 클래스
@@ -15,14 +20,29 @@ import lombok.RequiredArgsConstructor;
  * @version 2024. 03. 05
  */
 @ApplicationScoped
-@RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
+
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     @Transactional
     public ProductResponseDto readProduct(Long id) {
         Product product = productRepository.findById(id);
-        return new ProductResponseDto(product.id, product.getName(), product.getDescription());
+        // 해당 상품 아이디를 가지는 상품이 존재하지 않는 경우
+        if(Objects.isNull(product)) {
+            throw new ProductNotFoundException(id);
+        }
+        return new ProductResponseDto(product.getId(), product.getName(), product.getDescription());
+    }
+
+    @Transactional
+    public List<ProductResponseDto> readProductPagination(Page page) {
+        return productRepository.findAll(Sort.by("id"))
+                .page(page).list().stream()
+                .map(ProductResponseDto::toDto)
+                .toList();
     }
 
     @Transactional
@@ -31,11 +51,25 @@ public class ProductService {
                 .name(productCreateRequestDto.getName())
                 .description(productCreateRequestDto.getDescription())
                 .build();
-        // product.persist(); -> 이것은 무엇인가
-        // persist 상태로 만듦
         productRepository.persist(product);
+    }
 
-        // 한번 persisted 되면, 엔티티를 명시적으로 저장할 필요가 없음
-        // 수정 사항은 트랜잭션 커밋시 자동으로 persisted 됨
+    @Transactional
+    public void updateProduct(ProductUpdateRequestDto productUpdateRequestDto) {
+        Product product = productRepository.findById(productUpdateRequestDto.getId());
+        // 해당 상품 아이디를 가지는 상품이 존재하지 않는 경우
+        if(Objects.isNull(product)) {
+            throw new ProductNotFoundException(productUpdateRequestDto.getId());
+        }
+        // Dirty checking 에 의하여 업데이트 쿼리 생성
+        product.updateProductName(productUpdateRequestDto.getName());
+        product.updateProductDescription(productUpdateRequestDto.getDescription());
+    }
+
+    @Transactional
+    public void deleteProduct(Long productId) {
+        // 해당 상품 아이디를 가지는 상품이 존재하지 않는 경우
+        if(!productRepository.deleteById(productId))
+            throw new ProductNotFoundException(productId);
     }
 }
