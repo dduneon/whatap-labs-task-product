@@ -18,7 +18,7 @@ ERDCloud를 활용하여 erd를 작성해 보았습니다
 
 <img width="751" alt="image" src="https://github.com/dduneon/whatap-labs-task-product/assets/84072084/6a8d74f8-c3bc-45a9-9bed-ab5713921568">
 
-### 테스팅
+### HTTP Request
 
 ```http
 ### 특정 상품 하나에 대한 정보 가져오는 요청
