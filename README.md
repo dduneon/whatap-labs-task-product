@@ -16,27 +16,27 @@ ERDCloud를 활용하여 erd를 작성해 보았습니다
 
 요구 사항을 바탕으로 API 명세를 작성해 보았습니다
 
-![image](https://github.com/dduneon/whatap-labs-task-product/assets/84072084/fc5fcfb0-2ad8-4c4f-bceb-cb38d4f973d3)
+<img width="874" alt="image" src="https://github.com/dduneon/whatap-labs-task-product/assets/84072084/a5063196-da0b-427f-8829-a8e63e2110e2">
 
 
 ### HTTP Request
 
 ```http
 ### 특정 상품 하나에 대한 정보 가져오는 요청
-GET http://localhost:7010/products/1
+GET http://localhost:7010/api/products/1
 
 ### 특정 상품 하나에 대한 정보 가져오는 요청 (상품 존재하지 않을 경우)
-GET http://localhost:7010/products/111
+GET http://localhost:7010/api/products/111
 
 ### 해당하는 페이지 내의 상품 리스트를 가져오는 요청
-GET http://localhost:7010/products?page=0&size=5
+GET http://localhost:7010/api/products?page=0&size=5
 
 ### 페이지와 사이즈를 지정해 주지 않은 경우 (default 값인 page=0, size=5)
-GET http://localhost:7010/products
+GET http://localhost:7010/api/products
 
 
 ### 상품 생성하는 요청
-POST http://localhost:7010/products
+POST http://localhost:7010/api/products
 Content-Type: application/json
 
 {
@@ -45,7 +45,7 @@ Content-Type: application/json
 }
 
 ### 상품 생성하는 요청 (정확한 요청이 아닌 경우)
-POST http://localhost:7010/products
+POST http://localhost:7010/api/products
 Content-Type: application/json
 
 {
@@ -53,7 +53,7 @@ Content-Type: application/json
 }
 
 ### 상품에 대한 정보를 수정하는 요청
-PUT http://localhost:7010/products
+PUT http://localhost:7010/api/products
 Content-Type: application/json
 
 {
@@ -63,7 +63,7 @@ Content-Type: application/json
 }
 
 ### 상품에 대한 정보를 수정하는 요청 (상품이 존재하지 않는 경우)
-PUT http://localhost:7010/products
+PUT http://localhost:7010/api/products
 Content-Type: application/json
 
 {
@@ -73,7 +73,7 @@ Content-Type: application/json
 }
 
 ### 상품에 대한 정보를 수정하는 요청 (요청이 정확하지 않은 경우)
-PUT http://localhost:7010/products
+PUT http://localhost:7010/api/products
 Content-Type: application/json
 
 {
@@ -82,8 +82,8 @@ Content-Type: application/json
 }
 
 ### 상품을 삭제하는 요청
-DELETE http://localhost:7010/products/1
+DELETE http://localhost:7010/api/products/1
 
 ### 상품을 삭제하는 요청 (상품이 존재하지 않는 경우)
-DELETE http://localhost:7010/products/111
+DELETE http://localhost:7010/api/products/111
 ```
