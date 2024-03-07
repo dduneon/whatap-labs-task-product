@@ -27,7 +27,7 @@ import jakarta.ws.rs.core.Response;
  */
 
 @Produces(MediaType.APPLICATION_JSON)
-@Path("/products")
+@Path("/api/products")
 public class ProductController {
     private final ProductService productService;
 
