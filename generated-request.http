@@ -5,7 +5,7 @@ GET http://localhost:7010/api/products/1
 GET http://localhost:7010/api/products/111
 
 ### 해당하는 페이지 내의 상품 리스트를 가져오는 요청
-GET http://localhost:7010/api/products?page=0&size=5
+GET http://localhost:7010/api/products?page=0&size=3
 
 ### 페이지와 사이즈를 지정해 주지 않은 경우 (default 값인 page=0, size=5)
 GET http://localhost:7010/api/products
@@ -58,7 +58,7 @@ Content-Type: application/json
 }
 
 ### 상품을 삭제하는 요청
-DELETE http://localhost:7010/api/products/1
+DELETE http://localhost:7010/api/products/2
 
 ### 상품을 삭제하는 요청 (상품이 존재하지 않는 경우)
 DELETE http://localhost:7010/api/products/111

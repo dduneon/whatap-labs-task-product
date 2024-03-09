@@ -2,6 +2,8 @@ package io.whatap.task.service;
 
 import io.quarkus.panache.common.Page;
 import io.quarkus.panache.common.Sort;
+import io.whatap.task.common.domain.PageInfo;
+import io.whatap.task.common.dto.PagedResponse;
 import io.whatap.task.dto.req.ProductCreateRequestDto;
 import io.whatap.task.dto.req.ProductUpdateRequestDto;
 import io.whatap.task.dto.res.ProductResponseDto;
@@ -38,11 +40,21 @@ public class ProductService {
     }
 
     @Transactional
-    public List<ProductResponseDto> readProductPagination(Page page) {
-        return productRepository.findAll(Sort.by("id"))
+    public PagedResponse<ProductResponseDto> readProductPagination(Page page) {
+        List<ProductResponseDto> data = productRepository.findAll(Sort.by("id"))
                 .page(page).list().stream()
                 .map(ProductResponseDto::toDto)
                 .toList();
+
+        int count = (int) productRepository.count();
+        PageInfo pageInfo = PageInfo.builder()
+                .page(page.index)
+                .size(page.size)
+                .totalElements(count)
+                .totalPages(count / page.size + (count % page.size != 0 ? 1 : 0))
+                .build();
+
+        return new PagedResponse<>(data, pageInfo);
     }
 
     @Transactional
