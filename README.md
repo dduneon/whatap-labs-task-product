@@ -2,40 +2,143 @@
 
 상품에 관한 CRUD를 제공하는 API 입니다
 
-## 요구사항 분석
-
-### ER 다이어그램
-
-ERDCloud를 활용하여 erd를 작성해 보았습니다
+## ERD 설계
 
 <img width="504" alt="image" src="https://github.com/dduneon/whatap-labs-task-product/assets/84072084/66b56d2b-e53d-4c70-934b-fc2ddf490710">
 
 <br>
 
-### Product API 명세
+## API 명세
 
-요구 사항을 바탕으로 API 명세를 작성해 보았습니다
-
-<img width="874" alt="image" src="https://github.com/dduneon/whatap-labs-task-product/assets/84072084/a5063196-da0b-427f-8829-a8e63e2110e2">
+![image](https://github.com/dduneon/whatap-labs-task-product/assets/84072084/4da0d5ef-76fc-4b4c-b7c6-4bcabd31f80d)
 
 
-### HTTP Request
+## API 사용 예시
 
+### GET /api/products/{productId}
+> 특정 상품의 정보를 가져오는 요청
+
+요청
 ```http
-### 특정 상품 하나에 대한 정보 가져오는 요청
 GET http://localhost:7010/api/products/1
+```
+응답
+```http
+HTTP/1.1 200 OK
+{
+  "id": 1,
+  "name": "상품명",
+  "description": "상품설명"
+}
+```
 
-### 특정 상품 하나에 대한 정보 가져오는 요청 (상품 존재하지 않을 경우)
+<br>
+
+요청
+```http
 GET http://localhost:7010/api/products/111
+```
+응답
+```http
+HTTP/1.1 404 Not Found
+{
+  "status": 404,
+  "message": "Product(id=111) 를 찾을 수 없습니다"
+}
+```
 
-### 해당하는 페이지 내의 상품 리스트를 가져오는 요청
-GET http://localhost:7010/api/products?page=0&size=5
+<br>
 
-### 페이지와 사이즈를 지정해 주지 않은 경우 (default 값인 page=0, size=5)
+### GET /api/products?page=&size=
+> 페이지에 속하는 상품 리스트를 가져오는 요청
+
+요청
+```http
+GET http://localhost:7010/api/products?page=0&size=3
+```
+응답
+```http
+HTTP/1.1 200 OK
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "상품명",
+      "description": "상품설명"
+    },
+    {
+      "id": 2,
+      "name": "상품명",
+      "description": "상품설명"
+    },
+    {
+      "id": 3,
+      "name": "상품명",
+      "description": "상품설명"
+    }
+  ],
+  "pageInfo": {
+    "page": 0,
+    "size": 3,
+    "totalElements": 5,
+    "totalPages": 2
+  }
+}
+```
+
+<br>
+
+요청
+```http
 GET http://localhost:7010/api/products
+```
+응답
+```http
+HTTP/1.1 200 OK
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "상품명",
+      "description": "상품설명"
+    },
+    {
+      "id": 2,
+      "name": "상품명",
+      "description": "상품설명"
+    },
+    {
+      "id": 3,
+      "name": "상품명",
+      "description": "상품설명"
+    },
+    {
+      "id": 4,
+      "name": "상품명",
+      "description": "상품설명"
+    },
+    {
+      "id": 5,
+      "name": "상품명",
+      "description": "상품설명"
+    }
+  ],
+  "pageInfo": {
+    "page": 0,
+    "size": 5,
+    "totalElements": 5,
+    "totalPages": 1
+  }
+}
+```
 
+<br>
 
-### 상품 생성하는 요청
+### POST /api/products
+> 상품 생성 요청
+
+요청
+```http
 POST http://localhost:7010/api/products
 Content-Type: application/json
 
@@ -43,16 +146,46 @@ Content-Type: application/json
   "name": "상품명",
   "description": "상품설명"
 }
+```
+응답
+```http
+HTTP/1.1 201 Created
+content-length: 0
+```
 
-### 상품 생성하는 요청 (정확한 요청이 아닌 경우)
+<br>
+
+요청
+```http
 POST http://localhost:7010/api/products
 Content-Type: application/json
 
 {
   "description": "상품설명"
 }
+```
+응답
+```http
+HTTP/1.1 400 Bad Request
+{
+  "title": "Constraint Violation",
+  "status": 400,
+  "violations": [
+    {
+      "field": "createProduct.productCreateRequestDto.name",
+      "message": "name 필드가 비어 있습니다"
+    }
+  ]
+}
+```
 
-### 상품에 대한 정보를 수정하는 요청
+<br>
+
+### PUT /api/products
+> 상품 수정 요청
+
+요청
+```http
 PUT http://localhost:7010/api/products
 Content-Type: application/json
 
@@ -61,8 +194,16 @@ Content-Type: application/json
   "name": "새로운이름",
   "description": "새로운상품"
 }
+```
+응답
+```http
+HTTP/1.1 204 No Content
+```
 
-### 상품에 대한 정보를 수정하는 요청 (상품이 존재하지 않는 경우)
+<br>
+
+요청
+```http
 PUT http://localhost:7010/api/products
 Content-Type: application/json
 
@@ -71,8 +212,20 @@ Content-Type: application/json
   "name": "새로운이름",
   "description": "새로운상품"
 }
+```
+응답
+```http
+HTTP/1.1 404 Not Found
+{
+  "status": 404,
+  "message": "Product(id=111) 를 찾을 수 없습니다"
+}
+```
 
-### 상품에 대한 정보를 수정하는 요청 (요청이 정확하지 않은 경우)
+<br>
+
+요청
+```http
 PUT http://localhost:7010/api/products
 Content-Type: application/json
 
@@ -80,10 +233,47 @@ Content-Type: application/json
   "name": "새로운이름",
   "description": "새로운상품"
 }
+```
+응답
+```http
+HTTP/1.1 400 Bad Request
+{
+  "title": "Constraint Violation",
+  "status": 400,
+  "violations": [
+    {
+      "field": "updateProduct.productUpdateRequestDto.id",
+      "message": "id 필드가 비어 있습니다"
+    }
+  ]
+}
+```
 
-### 상품을 삭제하는 요청
-DELETE http://localhost:7010/api/products/1
+<br>
 
-### 상품을 삭제하는 요청 (상품이 존재하지 않는 경우)
+### DELETE /api/products
+> 상품 삭제 요청
+
+요청
+```http
+DELETE http://localhost:7010/api/products/2
+```
+응답
+```http
+HTTP/1.1 204 No Content
+```
+
+<br>
+
+요청
+```http
 DELETE http://localhost:7010/api/products/111
+```
+응답
+```http
+HTTP/1.1 404 Not Found
+{
+  "status": 404,
+  "message": "Product(id=111) 를 찾을 수 없습니다"
+}
 ```
