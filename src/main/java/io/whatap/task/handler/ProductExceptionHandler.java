@@ -13,11 +13,26 @@ import java.util.Map;
  * @version 2024. 03. 06
  */
 @Provider
-public class ProductExceptionHandler implements ExceptionMapper<ProductNotFoundException> {
+public class ProductExceptionHandler implements ExceptionMapper<Exception> {
     @Override
-    public Response toResponse(ProductNotFoundException exception) {
+    public Response toResponse(Exception exception) {
+        if (exception instanceof ProductNotFoundException) {
+            return handleProductNotFoundException((ProductNotFoundException) exception);
+        } else {
+            return handleGenericException(exception);
+        }
+    }
+
+    private Response handleProductNotFoundException(ProductNotFoundException exception) {
         return Response.status(Response.Status.NOT_FOUND)
-                .entity(Map.of("message", exception.getMessage()))
+                .entity(Map.of("status", Response.Status.NOT_FOUND.getStatusCode(), "message", exception.getMessage()))
                 .build();
     }
+
+    private Response handleGenericException(Exception exception) {
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                .entity(Map.of("status", Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), "message", exception.getMessage()))
+                .build();
+    }
+
 }
